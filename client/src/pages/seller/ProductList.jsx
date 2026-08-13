@@ -1,0 +1,144 @@
+import React, { useState } from 'react'
+import { useAppContext } from '../../context/AppContext';
+import { assets } from '../../assets/assets';
+import toast from 'react-hot-toast';
+import EditProductModal from '../../components/seller/EditProductModal';
+import ConfirmDeleteModal from '../../components/seller/ConfirmDeleteModal';
+
+const ProductList = () => {
+
+    const{products, currency, axios, fetchProducts} = useAppContext();
+    const [editOpen, setEditOpen] = useState(false);
+    const [editProduct, setEditProduct] = useState(null);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [deleteProductRef, setDeleteProductRef] = useState(null);
+
+    const toggleStock = async (id, inStock)=>{
+        try {
+            const { data } = await axios.put('/api/product/stock', { id, inStock});
+            if(data.success){
+                fetchProducts();
+                toast.success('Product stock status updated successfully');
+            } else{
+                toast.error('Failed to update stock status');
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
+    const askDelete = (product) => {
+        setDeleteProductRef(product);
+        setConfirmOpen(true);
+    };
+
+    const onConfirmDelete = async () => {
+        if (!deleteProductRef) return;
+        try {
+            setDeleting(true);
+            const { data } = await axios.delete(`/api/product/${deleteProductRef._id}`);
+            if (data?.success) {
+                toast.success('Product deleted');
+                setConfirmOpen(false);
+                setDeleteProductRef(null);
+                fetchProducts();
+            } else {
+                toast.error(data?.message || 'Delete failed');
+            }
+        } catch (e) {
+            toast.error(e?.response?.data?.message || e.message || 'Delete failed');
+        } finally {
+            setDeleting(false);
+        }
+    };
+
+    return (
+        <>
+        <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
+                        <div className="w-full md:p-10 p-4">
+                <h2 className="pb-4 text-lg font-medium">All Products</h2>
+                <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-white border border-gray-500/20">
+                    <table className="md:table-auto table-fixed w-full overflow-hidden">
+                        <thead className="text-gray-900 text-sm text-left">
+                            <tr>
+                                <th className="px-4 py-3 font-semibold truncate">Product</th>
+                                <th className="px-4 py-3 font-semibold truncate">Category</th>
+                                <th className="px-4 py-3 font-semibold truncate hidden md:block">Selling Price</th>
+                                                                <th className="px-4 py-3 font-semibold truncate">In Stock</th>
+                                                                <th className="px-4 py-3 font-semibold truncate">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-sm text-gray-500">
+                            {products.map((product) => (
+                                <tr key={product._id} className="border-t border-gray-500/20">
+                                    <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
+                                        <div className="border border-gray-300 rounded overflow-hidden">
+                                            <img src={product.images?.[0] || assets.upload_area} alt="Product" className="w-16" />
+                                        </div>
+                                        <span className="truncate max-sm:hidden w-full">{product.name}</span>
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        {product.category}
+                                        {typeof product.discountPercent === 'number' && product.discountPercent > 0 && (
+                                            <span className="ml-2 text-green-600">-{product.discountPercent}%</span>
+                                        )}
+                                    </td>
+                                    <td className="px-4 py-3 max-sm:hidden">{currency}{product.offerPrice}</td>
+                                    <td className="px-4 py-3">
+                                        <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+                                            <input onClick={() => toggleStock(product._id, !product.inStock)} checked={product.inStock} type="checkbox" className="sr-only peer" />
+                                            <div className="w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-[#c9595a] transition-colors duration-200"></div>
+                                            <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
+                                        </label>
+                                    </td>
+                                                                                                            <td className="px-4 py-3 space-x-2">
+                                                                                                                    <button
+                                                                                                                        onClick={() => { setEditProduct(product); setEditOpen(true); }}
+                                                                                                                        className="px-3 py-1.5 rounded text-white"
+                                                                                                                        style={{ backgroundColor: '#c9595a' }}
+                                                                                                                        onMouseOver={e => e.currentTarget.style.backgroundColor = '#b04849'}
+                                                                                                                        onMouseOut={e => e.currentTarget.style.backgroundColor = '#c9595a'}
+                                                                                                                    >
+                                                                                                                        Edit
+                                                                                                                    </button>
+                                                                                                                                                            <button
+                                                                                                                                                                onClick={() => askDelete(product)}
+                                                                                                                        className="px-3 py-1.5 rounded border text-red-600 border-red-300 hover:bg-red-50"
+                                                                                                                    >
+                                                                                                                        Delete
+                                                                                                                    </button>
+                                                                                                            </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                        <EditProductModal
+                            open={editOpen}
+                            productId={editProduct?._id}
+                            initialProduct={editProduct}
+                            onUpdated={() => {
+                                setEditOpen(false);
+                                setEditProduct(null);
+                                fetchProducts();
+                            }}
+                            onClose={() => { setEditOpen(false); setEditProduct(null); }}
+                        />
+    </div>
+    <ConfirmDeleteModal
+                            open={confirmOpen}
+                            title="Delete Product"
+                            message={deleteProductRef ? `Are you sure you want to delete "${deleteProductRef.name}"? This action cannot be undone.` : 'Are you sure?'}
+                            confirmText="Delete"
+                            cancelText="Cancel"
+                            loading={deleting}
+                            onCancel={() => { if (!deleting) { setConfirmOpen(false); setDeleteProductRef(null); } }}
+                            onConfirm={onConfirmDelete}
+            />
+    </>
+  )
+}
+
+export default ProductList;
