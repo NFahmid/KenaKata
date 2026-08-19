@@ -14,6 +14,7 @@ export const AppContextProvider = ({ children }) => {
     const currency = import.meta.env.VITE_CURRENCY || "৳"; // Currency from environment variable with fallback
     const navigate = useNavigate();
     const [user,setUser] = useState(null);
+    const [authChecked, setAuthChecked] = useState(false);
     const [isSeller, setIsSeller] = useState(false);
     const [showUserLogin,setShowUserLogin] = useState(false);
     const [products,setProducts] = useState([]);
@@ -63,6 +64,8 @@ export const AppContextProvider = ({ children }) => {
             }
         } catch (error) {
             setUser(null)
+        } finally {
+            setAuthChecked(true);
         }
     }
     
@@ -140,7 +143,7 @@ export const AppContextProvider = ({ children }) => {
        let totalAmount =0;
        for(const items in cartItems){
         let itemInfo = products.find((product) => product._id === items);
-        if(cartItems[items] > 0){
+        if(itemInfo && cartItems[items] > 0){
             totalAmount += itemInfo.offerPrice * cartItems[items];
         }
        }
@@ -173,7 +176,7 @@ export const AppContextProvider = ({ children }) => {
 
     }, [cartItems, user])
 
-    const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin,products,currency,addToCart,updateCartItem, 
+    const value = {navigate, user, setUser, authChecked, isSeller, setIsSeller, showUserLogin, setShowUserLogin,products,currency,addToCart,updateCartItem,
         removeFromCart, cartItems, fetchProducts, searchQuery, setSearchQuery, getCartAmount, getCartCount, axios, setCartItems, logoutSeller};
   return <AppContext.Provider value={value}>
     {children}

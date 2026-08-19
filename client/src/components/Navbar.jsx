@@ -52,7 +52,7 @@ const Navbar = () => {
      <nav className="flex items-center justify-between px-3 sm:px-6 md:px-16 lg:px-24 xl:px-32 py-3 sm:py-4 border-b border-gray-300 bg-white relative transition-all">
 
             <NavLink to ='/' onClick={()=> setOpen(false)} className="flex items-center gap-2">
-                <img className="h-39" src={assets.Mach} alt="Mach" />
+                <img className="h-10" src={assets.logo} alt="KenaKata" />
             </NavLink>
 
             {/* Desktop Menu */}
@@ -88,7 +88,7 @@ const Navbar = () => {
                         <li className='px-3 pb-2 text-gray-700 font-medium border-b border-gray-100 truncate'>
                             {user?.name || 'User'}
                         </li>
-                        <li onClick={()=> {navigate("my-orders"); setUserMenuOpen(false);}} className='p-2 pl-3 hover:bg-primary/10 cursor-pointer border-b border-gray-100'>My Orders</li>
+                        <li onClick={()=> {navigate("/my-orders"); setUserMenuOpen(false);}} className='p-2 pl-3 hover:bg-primary/10 cursor-pointer border-b border-gray-100'>My Orders</li>
                         <li onClick={() => {logout(); setUserMenuOpen(false);}} className='p-2 pl-3 hover:bg-primary/10 cursor-pointer'>Logout</li>
                     </ul>
                     </div> 

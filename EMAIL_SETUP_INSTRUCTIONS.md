@@ -20,7 +20,7 @@ Replace `your-frontend-domain.vercel.app` with your actual frontend Vercel domai
 
 Example: `https://mach-mangsho.vercel.app/logo2.jpg`
 
-**Alternative:** For immediate testing, the current placeholder logo will show "MachMangsho" text.
+**Alternative:** For immediate testing, the current placeholder logo will show "KenaKata" text.
 To use your actual logo, upload it to a CDN or use your deployed frontend URL.
 
 Important Notes:

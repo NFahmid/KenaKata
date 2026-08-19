@@ -1,20 +1,22 @@
 import express from 'express';
-import { register, login, forgotPassword, resetPassword, isAuth, logout, updateProfile, changePassword } from '../controllers/userController.js';
+import {
+    placeOrderCOD,
+    placeOrderStripe,
+    verifyPayment,
+    getUserOrders,
+    getAllOrders
+} from '../controllers/orderController.js';
 import authUser from '../middlewares/authUser.js';
-const userRouter = express.Router();
+import authSeller from '../middlewares/authSeller.js';
 
-userRouter.post('/register', register);
-userRouter.post('/login', login);
-userRouter.get('/is-auth', authUser, isAuth);
-// Allow logout without auth so stale/expired cookies can always be cleared
-userRouter.get('/logout', logout);
-// Optional: support POST logout as well for flexibility
-userRouter.post('/logout', logout);
-userRouter.post('/forgot-password', forgotPassword);
-userRouter.post('/reset-password', resetPassword);
-userRouter.put('/profile', authUser, updateProfile);
-userRouter.post('/change-password', authUser, changePassword);
+const orderRouter = express.Router();
+
+orderRouter.post('/cod', authUser, placeOrderCOD);
+orderRouter.post('/stripe', authUser, placeOrderStripe);
+orderRouter.post('/verify-payment', authUser, verifyPayment);
+orderRouter.get('/user', authUser, getUserOrders);
+orderRouter.get('/seller', authSeller, getAllOrders);
 
 // Export both named and default to avoid ESM import issues
-export { userRouter };
-export default userRouter;
+export { orderRouter };
+export default orderRouter;

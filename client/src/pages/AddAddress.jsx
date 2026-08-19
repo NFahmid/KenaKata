@@ -17,7 +17,7 @@ const InputField =({type, placeholder, name, handleChange, address})=>(
 )
 
 const AddAddress = () => {
-    const { axios, user, navigate } = useAppContext();
+    const { axios, user, authChecked, navigate } = useAppContext();
     const BD_DIVISIONS = [
         'Dhaka',
         'Chattogram',
@@ -103,12 +103,11 @@ const AddAddress = () => {
     }
 
     useEffect(() => {
-        if(!user) {
+        if(authChecked && !user) {
             navigate('/cart');
         }
 
-
-    },[]);
+    },[authChecked, user]);
   return (
     <div className='mt-16 pb-16'>
         <p className='text-2xl md:text-3xl text-gray-500'>Add Ship<span className="relative inline-block pb-1">ping

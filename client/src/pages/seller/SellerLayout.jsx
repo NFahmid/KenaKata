@@ -29,7 +29,7 @@ const SellerLayout = () => {
             <div className="flex items-center justify-between px-3 md:px-6 border-b border-gray-300 py-2 bg-[#fbeaea]" style={{ minHeight: '44px' }}>
 
                 <Link to='/' >
-                    <img src= {assets.Mach} alt="logo" className="cursor-pointer w-24 md:w-28" />
+                    <img src={assets.logo} alt="KenaKata" className="cursor-pointer w-32 md:w-36" />
                 </Link>
                 <div className="flex items-center gap-3 text-gray-500">
                     <p className="text-sm font-medium" style={{ color: '#c9595a' }}>Hi! Admin</p>

@@ -55,7 +55,7 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
     // SVG is not well supported in email clients (Gmail, Outlook, etc.)
     const logoUrl = "https://mach-mangsho.vercel.app/logo3.png"; // JPG works better in emails
     // Fallback if domain not ready: branded placeholder
-    const logoFallback = "https://via.placeholder.com/200x60/c9595a/ffffff?text=MachMangsho";
+    const logoFallback = "https://via.placeholder.com/200x60/c9595a/ffffff?text=KenaKata";
     
     console.log("Sending email for order:", orderId);
 
@@ -102,7 +102,7 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
       `;
     }).join("");
 
-    const subject = `Order Confirmation - ${orderId} | MachMangsho`;
+    const subject = `Order Confirmation - ${orderId} | KenaKata`;
     
     const html = `
     <!DOCTYPE html>
@@ -110,7 +110,7 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Order Receipt - MachMangsho</title>
+      <title>Order Receipt - KenaKata</title>
       <!--[if mso]>
       <noscript>
         <xml>
@@ -134,11 +134,11 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
               <tr>
                 <td style="background: linear-gradient(135deg, #c9595a 0%, #b14a4b 100%); padding: 40px 30px; text-align: center;">
                   <!-- Logo - JPG/PNG works better in emails than SVG -->
-                  <img src="${logoUrl}" alt="MachMangsho Logo" style="height: 150px; width: auto; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;" onerror="this.src='${logoFallback}'" />
-                  
+                  <img src="${logoUrl}" alt="KenaKata Logo" style="height: 150px; width: auto; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;" onerror="this.src='${logoFallback}'" />
+
                   <!-- Brand Name -->
                   <h1 style="margin: 0; color: white; font-size: 32px; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
-                    MachMangsho
+                    KenaKata
                   </h1>
                   <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 16px; font-weight: 300;">
                     Fresh Groceries Delivered
@@ -253,7 +253,7 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
                       Have questions about your order? We're here to help!
                     </p>
                     <p style="margin: 0; color: #666; font-size: 14px;">
-                      📧 Email: <a href="mailto:machmangsho2025@gmail.com" style="color: #c9595a; text-decoration: none;">support@machmangsho.com</a><br>
+                      📧 Email: <a href="mailto:machmangsho2025@gmail.com" style="color: #c9595a; text-decoration: none;">support@kenakata.com</a><br>
                       📞 Phone: +880-123-456-7890
                     </p>
                   </div>
@@ -265,14 +265,14 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
               <tr>
                 <td style="background: linear-gradient(135deg, #343a40 0%, #495057 100%); padding: 30px; text-align: center;">
                   <p style="margin: 0 0 10px 0; color: white; font-size: 14px; font-weight: 500;">
-                    Thank you for choosing MachMangsho for your grocery needs! 🛒
+                    Thank you for choosing KenaKata for your grocery needs! 🛒
                   </p>
                   <p style="margin: 0 0 15px 0; color: rgba(255,255,255,0.8); font-size: 12px;">
                     This is an automated receipt. Please keep it for your records.
                   </p>
                   <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 15px;">
                     <p style="margin: 0; color: rgba(255,255,255,0.6); font-size: 11px;">
-                      © 2025 MachMangsho. All rights reserved.<br>
+                      © 2025 KenaKata. All rights reserved.<br>
                       Fresh Groceries | Fast Delivery | Best Prices
                     </p>
                   </div>
@@ -290,7 +290,7 @@ export async function sendOrderReceiptEmail({ to, order, user }) {
 
     const textVersion = `
 ═══════════════════════════════════════════════════════
-                    MACHMANGSHO
+                    KENAKATA
                Fresh Groceries Delivered
 ═══════════════════════════════════════════════════════
 
@@ -349,19 +349,19 @@ WHAT'S NEXT:
 
 NEED HELP?
 ──────────────────────────────────────────────────────
-📧 Email: support@machmangsho.com
+📧 Email: support@kenakata.com
 📞 Phone: +880-123-456-7890
 
-Thank you for choosing MachMangsho for your grocery needs! 🛒
+Thank you for choosing KenaKata for your grocery needs! 🛒
 
-© 2025 MachMangsho. All rights reserved.
+© 2025 KenaKata. All rights reserved.
 Fresh Groceries | Fast Delivery | Best Prices
 
 This is an automated receipt. Please keep it for your records.
     `;
 
     const mailOptions = {
-      from: `"MachMangsho" <${process.env.EMAIL_FROM}>`,
+      from: `"KenaKata" <${process.env.EMAIL_FROM}>`,
       to: to,
       subject: subject,
       text: textVersion,
@@ -428,11 +428,11 @@ export async function sendPasswordResetEmail({ to, resetToken, userName }) {
 
     const mailOptions = {
       from: {
-        name: 'MachMangsho',
+        name: 'KenaKata',
         address: process.env.EMAIL_FROM
       },
       to: to,
-      subject: 'Reset Your Password - MachMangsho',
+      subject: 'Reset Your Password - KenaKata',
       html: `
         <!DOCTYPE html>
         <html>
@@ -456,14 +456,14 @@ export async function sendPasswordResetEmail({ to, resetToken, userName }) {
         <body>
           <div class="container">
             <div class="header">
-              <img src="https://mach-mangsho.vercel.app/logo3.png" alt="MachMangsho" class="logo" onerror="this.style.display='none';">
+              <img src="https://mach-mangsho.vercel.app/logo3.png" alt="KenaKata" class="logo" onerror="this.style.display='none';">
               <h1 style="color: #c9595a; margin: 10px 0;">Password Reset Request</h1>
             </div>
             
             <div class="content">
               <h2>Hello ${userName || 'Valued Customer'},</h2>
               
-              <p>We received a request to reset your password for your MachMangsho account. If you didn't make this request, you can safely ignore this email.</p>
+              <p>We received a request to reset your password for your KenaKata account. If you didn't make this request, you can safely ignore this email.</p>
               
               <p>To reset your password, click the button below:</p>
               
@@ -485,13 +485,13 @@ export async function sendPasswordResetEmail({ to, resetToken, userName }) {
               
               <p>If you're having trouble clicking the reset button, you can also visit our website and use the "Forgot Password" option again.</p>
               
-              <p>Thank you for choosing MachMangsho!</p>
+              <p>Thank you for choosing KenaKata!</p>
             </div>
-            
+
             <div class="footer">
-              <p>This email was sent by MachMangsho</p>
+              <p>This email was sent by KenaKata</p>
               <p>If you have any questions, please contact our support team.</p>
-              <p>&copy; 2025 MachMangsho. All rights reserved.</p>
+              <p>&copy; 2025 KenaKata. All rights reserved.</p>
             </div>
           </div>
         </body>

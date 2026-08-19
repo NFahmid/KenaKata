@@ -1,4 +1,4 @@
 @echo off
-cd /d "D:\MachMangsho\MachMangsho\server"
-node Server.js
+cd /d "%~dp0"
+node server.js
 pause

@@ -1,5 +1,5 @@
 
-import Mach from "./Mach.svg";
+import logo from "./logo.svg";
 import search_icon from "./search_icon.svg";
 import remove_icon from "./remove_icon.svg";
 import arrow_right_icon_colored from "./arrow_right_icon_colored.svg";
@@ -74,7 +74,7 @@ import barley_image from "./barley_image.png";
 
 export const assets = {
 
-  Mach,
+  logo,
   search_icon,
   remove_icon,
   arrow_right_icon_colored,
@@ -773,9 +773,9 @@ export const dummyAddress = [
   {
     _id: "67b5b9e54ea97f71bbc196a0",
     userId: "67b5880e4d09769c5ca61644",
-    firstName: "Mach",
-    lastName: "Mangsho",
-    email: "user.machmangsho@gmail.com",
+    firstName: "Kena",
+    lastName: "Kata",
+    email: "user.kenakata@gmail.com",
     street: "Street 123",
     city: "Dhaka",
     state: "Dhaka Division",

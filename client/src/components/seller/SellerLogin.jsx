@@ -43,12 +43,11 @@ const SellerLogin = () => {
         <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gray-100">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <img 
-                src={assets.Mach} 
-                alt="Mach Logo" 
-                className="w-48 h-48 mx-auto mb-6"
+              <img
+                src={assets.logo}
+                alt="KenaKata"
+                className="w-72 mx-auto"
               />
-              <div className="text-gray-800 text-4xl font-bold">MachMangsho</div>
             </div>
           </div>
         </div>
